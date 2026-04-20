@@ -1,4 +1,3 @@
-using System;
 using ConsoleApp1;
 
 class Program
@@ -16,7 +15,7 @@ class Program
 
         Console.WriteLine($"Создан {mySegment}");
         Console.WriteLine("=== 2. Проверка операций ===");
-        Console.WriteLine($"Длина (!): {!mySegment}");
+        Console.WriteLine ($"Длина (!): {!mySegment}");
 
         mySegment++;
         Console.WriteLine($"После ++: {mySegment}");
@@ -37,8 +36,5 @@ class Program
         {
             Console.WriteLine($"Число {checkNum} НЕ входит.");
         }
-
-        Console.WriteLine("\nНажмите любую клавишу...");
-        Console.ReadKey();
     }
 }
