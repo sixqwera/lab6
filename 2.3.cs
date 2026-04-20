@@ -1,6 +1,5 @@
-using System;
-
 namespace ConsoleApp1
+
 {
     internal class Checker
     {
@@ -32,7 +31,6 @@ namespace ConsoleApp1
                 bool isDouble = double.TryParse(
                     input,
                     out double result);
-
                 if (isDouble && result >= min && result <= max)
                 {
                     return result;
