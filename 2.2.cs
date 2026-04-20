@@ -1,35 +1,72 @@
-using System;
-
-namespace c__перывй_раз_
+namespace ConsoleApp1
 {
-    public class LineSegment
+    internal class LineSegment
     {
-        private double x;
-        private double y;
+        private double _x;
+        private double _y;
 
         public LineSegment(double x, double y)
         {
-            this.x = x;
-            this.y = y;
+            this._x = x;
+            this._y = y;
         }
 
         public LineSegment(LineSegment other)
         {
-            this.x = other.x;
-            this.y = other.y;
+            this._x = other._x;
+            this._y = other._y;
         }
 
-        public bool IsInside(double number)
+        public static double operator !(LineSegment s)
         {
-            double start = Math.Min(x, y);
-            double end = Math.Max(x, y);
+            return Math.Abs(s._x - s._y);
+        }
+
+        public static LineSegment operator ++(LineSegment s)
+        {
+            return new LineSegment(s._x + 1, s._y + 1);
+        }
+
+        public static explicit operator int(LineSegment s)
+        {
+            return (int)s._x;
+        }
+
+        public static implicit operator double(LineSegment s)
+        {
+            return s._y;
+        }
+
+        public static LineSegment operator +(LineSegment s, int d)
+        {
+            return new LineSegment(s._x + d, s._y + d);
+        }
+
+        public static LineSegment operator +(int d, LineSegment s)
+        {
+            return s + d;
+        }
+
+        public static bool operator <(LineSegment s, int number)
+        {
+            double start = Math.Min(s._x, s._y);
+            double end = Math.Max(s._x, s._y);
 
             return number >= start && number <= end;
         }
 
+        public static bool operator >(LineSegment s, int number)
+        {
+            double start = Math.Min(s._x, s._y);
+            double end = Math.Max(s._x, s._y);
+
+            return !(number >= start && number <= end);
+        }
+
+
         public override string ToString()
         {
-            return $"Отрезок: [{x}; {y}]";
+            return $"Отрезок: [{_x}; {_y}]";
         }
     }
 }
