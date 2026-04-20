@@ -1,40 +1,73 @@
-using ConsoleApp1;
+namespace ConsoleApp1
 
-class Program
 {
-    static void Main(string[] args)
+    internal class LineSegment
     {
-        Console.WriteLine("=== 1. Настройка отрезка ===");
+        private double _x;
+        private double _y;
 
-        double startPoint = Checker.CheckDouble("Введите x: ");
-        double endPoint = Checker.CheckDouble("Введите y: ");
-
-        LineSegment mySegment = new LineSegment(
-            startPoint, 
-            endPoint);
-
-        Console.WriteLine($"Создан {mySegment}");
-        Console.WriteLine("=== 2. Проверка операций ===");
-        Console.WriteLine ($"Длина (!): {!mySegment}");
-
-        mySegment++;
-        Console.WriteLine($"После ++: {mySegment}");
-
-        string prompt = "Введите число для проверки (<) " +
-            "в диапазоне от -100 до 100: ";
-
-        int checkNum = (int)Checker.CheckDouble(
-            prompt, 
-            -100, 
-            100);
-
-        if (mySegment < checkNum)
+        public LineSegment(double x, double y)
         {
-            Console.WriteLine($"Число {checkNum} входит.");
+            this._x = x;
+            this._y = y;
         }
-        else
+
+        public LineSegment(LineSegment other)
         {
-            Console.WriteLine($"Число {checkNum} НЕ входит.");
+            this._x = other._x;
+            this._y = other._y;
+        }
+
+        public static double operator !(LineSegment s)
+        {
+            return Math.Abs(s._x - s._y);
+        }
+
+        public static LineSegment operator ++(LineSegment s)
+        {
+            return new LineSegment(s._x + 1, s._y + 1);
+        }
+
+        public static explicit operator int(LineSegment s)
+        {
+            return (int)s._x;
+        }
+
+        public static implicit operator double(LineSegment s)
+        {
+            return s._y;
+        }
+
+        public static LineSegment operator +(LineSegment s, int d)
+        {
+            return new LineSegment(s._x + d, s._y + d);
+        }
+
+        public static LineSegment operator +(int d, LineSegment s)
+        {
+            return s + d;
+        }
+
+        public static bool operator <(LineSegment s, int number)
+        {
+            double start = Math.Min(s._x, s._y);
+            double end = Math.Max(s._x, s._y);
+
+            return number >= start && number <= end;
+        }
+
+        public static bool operator >(LineSegment s, int number)
+        {
+            double start = Math.Min(s._x, s._y);
+            double end = Math.Max(s._x, s._y);
+
+            return !(number >= start && number <= end);
+        }
+
+
+        public override string ToString()
+        {
+            return $"Отрезок: [{_x}; {_y}]";
         }
     }
 }
