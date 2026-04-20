@@ -1,45 +1,44 @@
-using c__перывй_раз_;
 using System;
+using ConsoleApp1;
 
 class Program
 {
     static void Main(string[] args)
     {
-        double ReadDouble(string message)
+        Console.WriteLine("=== 1. Настройка отрезка ===");
+
+        double startPoint = Checker.CheckDouble("Введите x: ");
+        double endPoint = Checker.CheckDouble("Введите y: ");
+
+        LineSegment mySegment = new LineSegment(
+            startPoint, 
+            endPoint);
+
+        Console.WriteLine($"Создан {mySegment}");
+        Console.WriteLine("=== 2. Проверка операций ===");
+        Console.WriteLine($"Длина (!): {!mySegment}");
+
+        mySegment++;
+        Console.WriteLine($"После ++: {mySegment}");
+
+        string prompt = "Введите число для проверки (<) " +
+            "в диапазоне от -100 до 100: ";
+
+        int checkNum = (int)Checker.CheckDouble(
+            prompt, 
+            -100, 
+            100);
+
+        if (mySegment < checkNum)
         {
-            double result;
-            while (true)
-            {
-                Console.Write(message);
-                if (double.TryParse(Console.ReadLine(), out result))
-                {
-                    return result;
-                }
-                Console.WriteLine("Ошибка! Введите числовое значение.");
-            }
-        }
-
-        Console.WriteLine("=== Настройка отрезка ===");
-        double startPoint = ReadDouble("Введите координату начала (x): ");
-        double endPoint = ReadDouble("Введите координату конца (y): ");
-
-        LineSegment mySegment = new LineSegment(startPoint, endPoint);
-        Console.WriteLine("Создан " + mySegment.ToString());
-
-        Console.WriteLine("=== Проверка точки ===");
-        double checkNum = ReadDouble("Введите число для проверки: ");
-
-        if (mySegment.IsInside(checkNum))
-        {
-            Console.WriteLine("Результат: True (Число входит в отрезок)");
+            Console.WriteLine($"Число {checkNum} входит.");
         }
         else
         {
-            Console.WriteLine("Результат: False (Число НЕ входит в отрезок)");
+            Console.WriteLine($"Число {checkNum} НЕ входит.");
         }
 
-        LineSegment copySegment = new LineSegment(mySegment);
-        Console.WriteLine("Создана копия отрезка: " + copySegment.ToString());
+        Console.WriteLine("\nНажмите любую клавишу...");
+        Console.ReadKey();
     }
 }
-
